@@ -1,0 +1,10 @@
+# Istruzione per clonare una repository esistente
+git clone https://github.com/vostrarepo
+
+# Istruzioni per caricare i dati su una repository
+git add .
+git commit -m 'messaggio'
+git push
+
+# Istruzioni per scaricare i dati di una repository sul vostro pc
+git pull
