@@ -8,3 +8,6 @@ git push
 
 # Istruzioni per scaricare i dati di una repository sul vostro pc
 git pull
+
+# Istruzioni per verificare lo stato di una repository
+git status
