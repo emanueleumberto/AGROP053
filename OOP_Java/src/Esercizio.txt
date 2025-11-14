@@ -6,7 +6,7 @@ Scrivere la classe Dipendente con i seguenti attributi:
 - Dipartimento - Valori possibili [PRODUZIONE, AMMINISTRAZIONE, VENDITE]
 
 Le proprietà  devono essere accessibili solo dalla classe Dipendente
-ed essere disponibili in lettura tramite opportuni metodi getter ma non è possibile modificarli,
+ed essere disponibili in lettura tramite opportuni metodi getter ma le proprietà non devono essere modificate,
 tranne la proprietà  Dipartimento  che può essere modificata da altre classi tramite metodo setter.
 
 Estendere la classe Dipendente aggiungendo 3 ulteriori sottoclassi:
