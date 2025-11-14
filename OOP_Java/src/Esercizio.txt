@@ -1,0 +1,23 @@
+Scrivere la classe Dipendente con i seguenti attributi:
+- matricola - identificativo univoco del dipendente
+- nomeCompleto - Stringa composta da Nome e Cognome
+- stipendioBase - numero decimale da definire inizialmente tramite il costruttore
+- stipendio - numero decimale calcolato per il dipendente con stipendio base mensile
+- Dipartimento - Valori possibili [PRODUZIONE, AMMINISTRAZIONE, VENDITE]
+
+Le proprietà  devono essere accessibili solo dalla classe Dipendente
+ed essere disponibili in lettura tramite opportuni metodi getter ma non è possibile modificarli,
+tranne la proprietà  Dipartimento  che può essere modificata da altre classi tramite metodo setter.
+
+Estendere la classe Dipendente aggiungendo 3 ulteriori sottoclassi:
+-	DipendenteFullTime
+-	DipendentePartTime
+-	Dirigente
+
+Ogni classe concreta deve implementare il metodo calculateSalary() in modo appropriato
+per il tipo di dipendente specifico. Ad esempio, il salario di un dipendente a tempo pieno
+potrebbe essere calcolato come uno stipendio mensile fisso, mentre il salario
+di un dipendente part-time potrebbe essere calcolato in base alle ore lavorate
+
+Istanziare n Dipendenti nel main, creare un array con essi ed iterare su ognuno di essi
+stampando la matricola di ogni dipendente, il nome e lo stipendio.
