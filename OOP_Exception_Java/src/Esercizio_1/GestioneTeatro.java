@@ -9,7 +9,7 @@ public class GestioneTeatro {
             t.prenotaPosto(3);
             t.prenotaPosto(5);
             t.prenotaPosto(2);
-            t.prenotaPosto(3);
+            t.prenotaPosto(1);
         } catch (PostoNonValidoException e) {
             System.out.println(e.getMessage());
             stampaPostiDisponibili();

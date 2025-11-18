@@ -21,6 +21,7 @@ Classe Main
     Gestisce le eccezioni e stampa messaggi adeguati all’utente.
 
 
+
 Extra:
 Classe Uomo e una classe Donna con le proprietà nome, cognome, cf(univoco) e gestisci l'array di posti
 nel teatro come un array di oggetti piuttosto che come booleani.

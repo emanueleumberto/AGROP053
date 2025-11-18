@@ -17,6 +17,7 @@ public class Teatro {
         // Teatro Pieno
         if(!postiDisponibili()) {
             throw new PostiTerminatiException("Sold Out!!!");
+
         }
 
         // Posto fuori range
