@@ -78,7 +78,7 @@ public class Biblioteca {
 
     public void prestitoLibro(String idUtente, String ISBN) {
         //    prestitoLibro(String idUtente, String ISBN) → Permette a un utente di prendere in prestito un libro
-//            (se disponibile) e se non ha già presi 3
+        //            (se disponibile) e se non ha già presi 3
         Utente u = cercaUtente(idUtente); // Utente | null
         Libro l = cercaLibro(ISBN); // Libro | null
         if(u != null && l != null) {
@@ -116,9 +116,5 @@ public class Biblioteca {
         }
         return null;
     }
-
-
-
-
 
 }
