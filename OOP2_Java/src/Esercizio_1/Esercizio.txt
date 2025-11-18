@@ -39,7 +39,7 @@ Metodi:
     aggiungiLibro(Libro libro) → Aggiunge un libro al catalogo se non esiste
     registraUtente(Utente utente) → Aggiunge un utente alla lista se non esiste
     prestitoLibro(String idUtente, String ISBN) → Permette a un utente di prendere in prestito un libro
-                                                (se disponibile) e se non ha già presi 3
+                                                 (se disponibile) e se non ha già presi 3
     restituzioneLibro(String idUtente, String ISBN) → Permette a un utente di restituire un libro
     mostraCatalogo() → Stampa tutti i libri con la loro disponibilità
     mostraUtentiRegistrati() → Stampa tutti gli utenti registrati
