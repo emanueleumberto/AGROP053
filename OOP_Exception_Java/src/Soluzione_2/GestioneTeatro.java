@@ -12,6 +12,7 @@ public class GestioneTeatro {
             //t.prenotaPosto(18, d);
             t.prenotaPosto(3, d);
             //t.prenotaPosto(8, d);
+            // t.prenotaPosto(5, u);
         } catch (PostoNonValidoException e) {
             System.out.println(e.getMessage());
             stampaPostiDisponibili();

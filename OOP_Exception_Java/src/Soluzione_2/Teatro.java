@@ -27,6 +27,11 @@ public class Teatro {
         if(posti[numeroPosto-1] != null) {
             throw new PostoGiaOccupatoException("Posto " + numeroPosto + " occupato!!");
         }
+        // Posto gia prenotato dallo stesso utente
+        if(prenotazioneUnivoca(u)) {
+            throw new PostoGiaOccupatoException("Prenotazione esistente per l'utente:  " + u.getNome() + " " + u.getCognome() + "!!");
+        }
+
         this.posti[numeroPosto -1] = u;
         System.out.println("Prenotazione posto " + numeroPosto + " effettuata correttamente da " + u.getNome() + " " + u.getCognome());
     }
@@ -35,6 +40,17 @@ public class Teatro {
         for (int i = 0; i < posti.length; i++) {
             if(posti[i] == null) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean prenotazioneUnivoca(Utente u) {
+        for (int i = 0; i < posti.length; i++) {
+            if(posti[i] != null) {
+                if(posti[i].getCf().equals(u.getCf())) {
+                    return true;
+                }
             }
         }
         return false;
