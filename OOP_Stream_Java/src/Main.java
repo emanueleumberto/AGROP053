@@ -55,10 +55,62 @@ public class Main {
 //        myStream = myStream.sorted();
 //        myStream.forEach(str -> System.out.println(str));
 
-        myStream.distinct()
+//        myStream.distinct()
+//                .filter(str -> str.length() > 3)
+//                .map(str -> str + "!!!")
+//                .sorted()
+//                .limit(3)
+//                .forEach(str -> System.out.println(str));
+
+
+        List<String> listaModificata =  myStream.distinct()
                 .filter(str -> str.length() > 3)
+                .map(str -> str + "!!!")
                 .sorted()
-                .forEach(str -> System.out.println(str));
+                .limit(3)
+                .toList();
+
+        // listaModificata.forEach(e-> System.out.println(e));
+
+        List<User> userList = new ArrayList<User>();
+        userList.add(new User("Mario", "Rossi", "Roma", 25));
+        userList.add(new User("Giuseppe", "Verdi", "Milano", 31));
+        userList.add(new User("Francesca", "Neri", "Napoli", 19));
+        userList.add(new User("Antonio", "Bianchi", "Roma", 29));
+        userList.add(new User("Simona", "Viola", "Palermo", 41));
+
+        userList.get(0).getHobby().add("Calcio");
+        userList.get(0).getHobby().add("Padel");
+        userList.get(2).getHobby().add("Calcio");
+        userList.get(3).getHobby().add("Golf");
+        userList.get(3).getHobby().add("Calcio");
+        userList.get(1).getHobby().add("Padel");
+        userList.get(1).getHobby().add("Calcio");
+        userList.get(4).getHobby().add("Tennis");
+
+//        List<User> userListFiltrata = new ArrayList<User>();
+//        for (User u : userList) {
+//            if(u.getAge() > 29) {
+//                userListFiltrata.add(u);
+//            }
+//        }
+
+        List<User> userListFiltrata = userList.stream().filter(u -> u.getAge() > 29).toList();
+
+        OptionalDouble age =  userList.stream()
+                //.forEach(System.out::println);
+                .mapToInt(User::getAge)
+                //.max();
+                //.min();
+                //.sum();
+                .average();
+        System.out.println(age.getAsDouble());
+
+        userList.stream()
+                .flatMap(u -> u.getHobby().stream())
+                .distinct()
+                .forEach(System.out::println);
+
 
         //testLambdaFunction();
     }
