@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
@@ -111,6 +112,85 @@ public class Main {
                 .distinct()
                 .forEach(System.out::println);
 
+        System.out.println("*************************");
+
+        // Operazioni finali
+        // Sono tutte quelle operazioni che restituiscono un valore finale
+        // Terminando la manipolazione dello Stream
+
+        // Matching
+        // Reduction
+        // Collection
+
+        Stream<Integer> myStreamNum = Stream.iterate(0, n -> n+2).limit(10);
+        // myStreamNum.forEach(System.out::println);
+
+        // Reduction
+        int numRed = myStreamNum.reduce(0, (acc, val) -> acc + val);
+        System.out.println(numRed);
+
+        // equivalente a:
+        //        int[] arrNum = {0,2,4,6,8,10,12,14,16,18};
+        //        int acc = 0;
+        //        for (int i = 0; i < arrNum.length; i++) {
+        //            acc += arrNum[i];
+        //        }
+
+        // Matching
+        myStreamNum = Stream.iterate(0, n -> n+2).limit(10);
+        //myStreamNum.anyMatch(e -> e > 5); // true -> almeno un valore è maggiore di 5
+        //myStreamNum.allMatch(e -> e > 5 ); // false -> tutti i valori sono maggiori di 5
+        //myStreamNum.noneMatch(e -> e > 5); // false -> nessun valore è maggiore di 5
+
+        boolean allCalcio = userList.stream().allMatch(u -> u.getHobby().contains("Calcio"));
+        System.out.println("Tutti gli utenti amano il calcio: " + allCalcio);
+
+        boolean anyCalcio = userList.stream().anyMatch(u -> u.getHobby().contains("Calcio"));
+        System.out.println("Alcuni utenti amano il calcio: " + anyCalcio);
+
+        boolean noneSci = userList.stream().noneMatch(u -> u.getHobby().contains("Sci"));
+        System.out.println("Nessun utente ama lo sci: " + noneSci);
+
+        // Collection
+        // .collect(Collectors.toSet()) -> Set<E>
+        // .collect(Collectors.toList()) -> List<E>
+        // .collect(Collectors.toMap()) -> Map<K, V>
+        Stream<Double> myStreamRand = Stream.generate(new Random()::nextDouble).limit(10);
+        Set<Long> num =  myStreamRand
+                .map(n -> n * 100)
+                .map(Math::round)
+                //.forEach(System.out::println);
+                .collect(Collectors.toSet());
+        num.forEach(System.out::println);
+
+        // Collectors
+        // Collectors.toSet() -> Raccoglie tutti i dati manipolati dello Stream in un Set
+        // Collectors.toList() -> Raccoglie tutti i dati manipolati dello Stream in un List
+        // Collectors.toMap() -> Raccoglie tutti i dati manipolati dello Stream in un Map
+        // Collectors.groupingBy() -> Raggruppa gli elementi di uno Stream in una mappa in
+        //                          cui la chiave sarà la proprietà per il quale voglio raggruppare
+        //                          il valore sarà una lista di elementi raggruppati
+        // Collectors.summingInt() -> Calcola la somma di valori Int in uno Stream
+        // Collectors.summingLong() -> Calcola la somma di valori Long in uno Stream
+        // Collectors.summingDouble() -> Calcola la somma di valori Double in uno Stream
+        // Collectors.averageingInt() -> Calcola la media di valori Int in uno Stream
+        // Collectors.averageingLong() -> Calcola la media di valori Long in uno Stream
+        // Collectors.averageingDouble() -> Calcola la media di valori Doble in uno Stream
+
+        // Comparators
+        // Comparator è un metodo per la gestione avanzata degli ordinamenti in uno Stream
+        // .sorted(Comparator.comparing(Oggetto::Proprietà)
+        // .sorted(Comparator.comparingInt(Oggetto::ProprietàInt)
+        // .sorted(Comparator.comparingLong(Oggetto::ProprietàLong)
+        // .sorted(Comparator.comparingDouble(Oggetto::ProprietàDouble)
+
+        // Mapping
+        // .mapToInt(Oggetto::Proprietà) -> Trasforma  uno Stream di oggetti in uno Stream di interi
+        // .mapToLong(Oggetto::Proprietà) -> Trasforma  uno Stream di oggetti in uno Stream di long
+        // .mapToDouble(Oggetto::Proprietà) -> Trasforma  uno Stream di oggetti in uno Stream di double
+        // .flatMap(obj .> obj.prop.stream()) -> Trasforma uno Stream di oggetti in uno Stream di
+        //                                      valori letti da uno lista contenuta in una proprietà
+        //                                      dell'oggetto
 
         //testLambdaFunction();
     }
