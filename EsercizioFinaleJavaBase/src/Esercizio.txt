@@ -1,0 +1,75 @@
+Sistema di gestione di un catalogo multimediale (libri, film, album musicali)
+
+Obiettivo generale
+Progettare e sviluppare un mini–progetto Java che dimostri l’applicazione
+integrata dei principali concetti OOP:
+ereditarietà, astrazione, polimorfismo, incapsulamento, interfacce, gestione delle eccezioni,
+utilizzo di Collection Framework e Stream API.
+
+Scenario
+Creare un catalogo che gestisca diversi tipi di contenuti multimediali.
+Ogni elemento del catalogo deve avere proprietà comuni (titolo, anno, autore)
+e proprietà specifiche in base alla tipologia.
+
+Le operazioni del catalogo devono includere ricerca, ordinamento, filtraggio e gestione sicura degli errori.
+
+Struttura OOP da implementare
+Definire una classe astratta MediaItem con:
+Attributi privati e incapsulati:
+    String titolo,
+    int anno,
+    String autore.
+Costruttore, getter/setter controllati (validazioni minime).
+Metodo astratto String getInfoDettagliata().
+
+Creare tre classi derivate che estendono MediaItem:
+--> Libro (proprietà aggiuntive: numeroPagine, genere).
+--> Film (durata, regista, classificazione).
+--> AlbumMusicale (numeroTracce, etichetta).
+
+Implementare un’interfaccia Ricercabile con:
+--> Metodo boolean matches(String query) usato per ricerche dinamiche.
+
+Implementazione polimorfica nelle classi figlie.
+Polimorfismo richiesto
+Creare una lista di MediaItem e popolarla con oggetti di tutte le sottoclassi.
+Invocare metodi polimorfici come getInfoDettagliata() senza conoscere il tipo specifico dell’oggetto.
+
+Usare matches() per ricerche generiche su tutti i tipi di media.
+
+Collection & Stream API
+
+Utilizzare List<MediaItem> come contenitore principale.
+
+Sfruttare Stream per:
+
+1 -> Filtrare contenuti tramite matches().
+2 -> Ordinare per anno o titolo.
+3 -> Raggruppare i contenuti per autore.
+4 -> Creare statistiche (es. media degli anni di pubblicazione, totale degli elementi per tipo).
+
+Exception Handling
+- Creare una eccezione custom ElementoNonTrovatoException.
+- Lanciare l’eccezione quando una ricerca non produce risultati.
+- Gestire errori di input (es. anno < 0, durata < 0…) tramite IllegalArgumentException.
+
+Funzionalità richieste del programma
+
+--> Aggiungere nuovi elementi al catalogo tramite cicli e Java Faker.
+--> Cercare libri/film/album tramite una stringa generica.
+--> Filtrare elementi tramite Stream.
+--> Mostrare i dati con metodi polimorfici.
+--> Stampare statistiche numeriche.
+--> Gestire eccezioni in modo appropriato con messaggi chiari.
+
+Output atteso dal progetto
+
+--> Stampa del catalogo completo organizzati per tipo.
+--> Risultati delle ricerche.
+--> Ordinamenti applicati.
+--> Informazioni dettagliate dei singoli media.
+--> Gestione di un caso in cui l’eccezione custom viene lanciata.
+Extra
+--> Estensioni opzionali (per studenti più veloci)
+    --> Aggiungere una classe Catalogo con metodi dedicati di gestione.
+    --> Introdurre comparator personalizzati.

@@ -78,7 +78,7 @@ public class Main {
         userList.add(new User("Giuseppe", "Verdi", "Milano", 31));
         userList.add(new User("Francesca", "Neri", "Napoli", 19));
         userList.add(new User("Antonio", "Bianchi", "Roma", 29));
-        userList.add(new User("Simona", "Viola", "Palermo", 41));
+        userList.add(new User("Simona", "Viola", "Napoli", 41));
 
         userList.get(0).getHobby().add("Calcio");
         userList.get(0).getHobby().add("Padel");
@@ -122,7 +122,8 @@ public class Main {
         // Reduction
         // Collection
 
-        Stream<Integer> myStreamNum = Stream.iterate(0, n -> n+2).limit(10);
+        Stream<Integer> myStreamNum = Stream.iterate(0, n -> n+2).limit(10); // 0 2 4 6 8 10 12 14 16 18
+        // myStreamNum.forEach(s -> System.out.println(s));
         // myStreamNum.forEach(System.out::println);
 
         // Reduction
@@ -135,6 +136,11 @@ public class Main {
         //        for (int i = 0; i < arrNum.length; i++) {
         //            acc += arrNum[i];
         //        }
+
+        int etamol =userList.stream()
+                .mapToInt(User::getAge)
+                .reduce(1, (acc, val) -> acc * val);
+        System.out.println(etamol);
 
         // Matching
         myStreamNum = Stream.iterate(0, n -> n+2).limit(10);
@@ -156,12 +162,12 @@ public class Main {
         // .collect(Collectors.toList()) -> List<E>
         // .collect(Collectors.toMap()) -> Map<K, V>
         Stream<Double> myStreamRand = Stream.generate(new Random()::nextDouble).limit(10);
-        Set<Long> num =  myStreamRand
+        Set<Long> num = myStreamRand
                 .map(n -> n * 100)
                 .map(Math::round)
                 //.forEach(System.out::println);
                 .collect(Collectors.toSet());
-        num.forEach(System.out::println);
+        //num.forEach(System.out::println);
 
         // Collectors
         // Collectors.toSet() -> Raccoglie tutti i dati manipolati dello Stream in un Set
@@ -192,6 +198,30 @@ public class Main {
         //                                      valori letti da uno lista contenuta in una proprietà
         //                                      dell'oggetto
 
+
+        Map<String, List<User>> utentiPerCitta =
+                userList.stream().collect(Collectors.groupingBy(User::getCity));
+
+        for (String k : utentiPerCitta.keySet()) {
+            System.out.println(k + " -> " + utentiPerCitta.get(k));
+        }
+
+        utentiPerCitta.forEach((k, v) -> System.out.println(k + " -> " + v));
+
+        int sommaEta1 = userList
+                .stream()
+                .mapToInt(User::getAge)
+                .sum();
+        System.out.println("Somma di tutte le età degli utenti: " + sommaEta1);
+
+        int sommaEta2 = userList.stream().collect(Collectors.summingInt(User::getAge));
+        System.out.println("Somma di tutte le età degli utenti: " + sommaEta2);
+
+        List<User> listaOrdinata =  userList.stream()
+                                        .sorted(Comparator.comparingInt(User::getAge))
+                                        .toList();
+        listaOrdinata.forEach(System.out::println);
+
         //testLambdaFunction();
     }
 
@@ -219,5 +249,35 @@ public class Main {
 
     }
 }
+
+//function(params) {
+//    // Blocco di istruzioni
+//}
+//
+//(param) -> {
+//    // Blocco di istruzioni
+//}
+//
+//(param) -> {
+//        System.out.println(param)
+//}
+//
+//(param) -> {
+//    return param * 2
+//}
+//
+//param -> {
+//        return param * 2
+//}
+//
+//param -> { param * 2 }
+//
+//param -> param * 2;
+//param -> System.out.println(param)
+
+
+
+
+
 
 
