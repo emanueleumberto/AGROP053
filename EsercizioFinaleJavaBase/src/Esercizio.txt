@@ -22,13 +22,13 @@ Attributi privati e incapsulati:
 Costruttore, getter/setter controllati (validazioni minime).
 Metodo astratto String getInfoDettagliata().
 
+Implementare un’interfaccia Ricercabile con:
+--> Metodo boolean matches(String query) usato per ricerche dinamiche.
+
 Creare tre classi derivate che estendono MediaItem:
 --> Libro (proprietà aggiuntive: numeroPagine, genere).
 --> Film (durata, regista, classificazione).
 --> AlbumMusicale (numeroTracce, etichetta).
-
-Implementare un’interfaccia Ricercabile con:
---> Metodo boolean matches(String query) usato per ricerche dinamiche.
 
 Implementazione polimorfica nelle classi figlie.
 Polimorfismo richiesto
@@ -45,7 +45,7 @@ Sfruttare Stream per:
 
 1 -> Filtrare contenuti tramite matches().
 2 -> Ordinare per anno o titolo.
-3 -> Raggruppare i contenuti per autore.
+3 -> Raggruppare e contare i contenuti per autore.
 4 -> Creare statistiche (es. media degli anni di pubblicazione, totale degli elementi per tipo).
 
 Exception Handling
