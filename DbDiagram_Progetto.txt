@@ -1,0 +1,66 @@
+Table Studenti {
+  matricola integer [pk]
+  nome varchar [not null]
+  cognome varchar [not null]
+  email varchar [not null, unique]
+  data_nascita date [not null]
+}
+
+Table Docenti {
+  docente_id integer [pk, increment]
+  nome varchar [not null]
+  cognome varchar [not null]
+  titolo varchar [not null]
+  email varchar [not null, unique]
+}
+
+Table Corsi {
+  corso_id integer [pk, increment]
+  nome varchar [not null]
+  descrizione text [null]
+  costo double [not null]
+  modalita enum [default: "presenza"]
+}
+
+Table Moduli {
+  moduli_id integer [pk, increment]
+  nome varchar [not null]
+  descrizione text [null]
+  durata integer [null]
+  materia varchar [null]
+}
+
+Table Recensioni {
+  recensione_id integer [pk, increment]
+  valutazione integer [not null]
+  descrizione text [null]
+  matricola_studente integer [not null]
+  corso_id integer [not null]
+}
+
+Table Insegna {
+  docente_id integer [not null]
+  modulo_id integer [not null]
+}
+
+Table Composto {
+  modulo_id integer [not null]
+  corso_id integer [not null]
+}
+
+Table Iscrizioni {
+  iscrizione_id integer [pk, increment]
+  corso_id integer [not null]
+  matricola_studente integer [not null]
+  descrizione text [null]
+  stato bool [default: true]
+}
+
+Ref: Recensioni.matricola_studente > Studenti.matricola
+Ref: Recensioni.corso_id > Corsi.corso_id
+Ref: Insegna.docente_id > Docenti.docente_id
+Ref: Insegna.modulo_id > Moduli.moduli_id
+Ref: Composto.modulo_id > Moduli.moduli_id
+Ref: Composto.corso_id > Corsi.corso_id
+Ref: Iscrizioni.matricola_studente > Studenti.matricola
+Ref: Iscrizioni.corso_id > Corsi.corso_id
