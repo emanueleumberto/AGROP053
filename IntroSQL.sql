@@ -279,6 +279,9 @@ INSERT INTO agrop053_intro.courses 	(course_name, course_hours)
 INSERT INTO agrop053_intro.users_courses(user_id, course_id) 
 						VALUES (1,5), (3,5), (1,4), (2, 1), (3, 2), (2, 3);
                         
+INSERT INTO agrop053_intro.users_courses(user_id, course_id) 
+						VALUES (1,2)
+                        
 -- UPDATE agrop053_intro.cars SET car_name = "Fiat Punto" WHERE car_id = 1;
 
 -- DELETE FROM agrop053_intro.signin WHERE user_id = 1;
@@ -368,4 +371,16 @@ SELECT firstname, lastname, fiscal_code, COUNT(*) AS NumeroCorsi
     WHERE c.course_name IN ("Php", "SQL", "Java", "Python")
     GROUP BY fiscal_code
     HAVING COUNT(*) > 1;
+    
+-- View
 
+CREATE VIEW agrop053_intro.mia_vista AS 
+	SELECT firstname, lastname, fiscal_code, COUNT(*) AS NumeroCorsi
+	FROM agrop053_intro.users_courses AS uc
+    LEFT JOIN agrop053_intro.users AS u ON u.user_id = uc.user_id
+    LEFT JOIN agrop053_intro.courses as c ON c.course_id = uc.course_id
+    WHERE c.course_name IN ("Php", "SQL", "Java", "Python")
+    GROUP BY fiscal_code
+    HAVING COUNT(*) > 1;
+    
+SELECT * FROM agrop053_intro.mia_vista;
