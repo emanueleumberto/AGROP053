@@ -147,6 +147,43 @@
     LAST_INSERT_ID() -> Funzione che restitisce l'ultimo valore ID inserito in una tabella
     
   */
+  
+  /*
+	INNER JOIN | LEFT JOIN | RIGHT JOIN | CROSS JOIN
+    
+    SELECT [DISTINCT] column_name1, column_name2, ...., column_nameN | * | aggregate function(expression)
+		FROM db_name.table_name1 INNER JOIN db_name.table_name2 ON db_name.table_name1.column_name = db_name.table_name2.column_name
+        [WHERE Search Condition]
+        [GROUP BY]
+        [HAVING Search Condition]
+        [ORDER BY]
+        [LIMIT]
+        
+	SELECT [DISTINCT] column_name1, column_name2, ...., column_nameN | * | aggregate function(expression)
+		FROM db_name.table_name1 LEFT JOIN db_name.table_name2 ON db_name.table_name1.column_name = db_name.table_name2.column_name
+        [WHERE Search Condition]
+        [GROUP BY]
+        [HAVING Search Condition]
+        [ORDER BY]
+        [LIMIT]
+        
+	SELECT [DISTINCT] column_name1, column_name2, ...., column_nameN | * | aggregate function(expression)
+		FROM db_name.table_name1 RIGHT JOIN db_name.table_name2 ON db_name.table_name1.column_name = db_name.table_name2.column_name
+        [WHERE Search Condition]
+        [GROUP BY]
+        [HAVING Search Condition]
+        [ORDER BY]
+        [LIMIT]
+        
+	SELECT [DISTINCT] column_name1, column_name2, ...., column_nameN | * | aggregate function(expression)
+		FROM db_name.table_name1 CROSS JOIN db_name.table_name2 ON db_name.table_name1.column_name = db_name.table_name2.column_name
+        [WHERE Search Condition]
+        [GROUP BY]
+        [HAVING Search Condition]
+        [ORDER BY]
+        [LIMIT]
+  */
+  
 DROP DATABASE IF EXISTS agrop053_intro;
 CREATE DATABASE IF NOT EXISTS agrop053_intro;
 -- SHOW DATABASES;
@@ -293,3 +330,42 @@ SELECT AVG(age) FROM agrop053_intro.users;
 SELECT FORMAT(AVG(age),2) FROM agrop053_intro.users;
 SELECT TRUNCATE(AVG(age),2) FROM agrop053_intro.users;
 SELECT COUNT(LAST_INSERT_ID()) FROM agrop053_intro.users;
+
+SELECT * FROM agrop053_intro.users;
+SELECT * FROM agrop053_intro.signin;
+
+-- SELECT * FROM agrop053_intro.users AS u, agrop053_intro.signin AS s WHERE u.user_id = s.user_id;
+SELECT u.firstname, u.lastname, u.email, s.username, s.password
+	FROM agrop053_intro.users AS u 
+	INNER JOIN agrop053_intro.signin AS s
+    ON u.user_id = s.user_id
+    WHERE u.age > 30;
+    
+SELECT *
+	FROM agrop053_intro.users AS u 
+	LEFT JOIN agrop053_intro.signin AS s
+    ON u.user_id = s.user_id;
+    
+SELECT *
+	FROM agrop053_intro.signin AS s
+	RIGHT JOIN agrop053_intro.users AS u 
+    ON u.user_id = s.user_id;
+    
+SELECT *
+	FROM agrop053_intro.users AS u 
+	CROSS JOIN agrop053_intro.signin AS s
+    ON u.user_id = s.user_id;
+    
+SELECT * 
+	FROM agrop053_intro.users AS u 
+    LEFT JOIN agrop053_intro.signin AS s ON u.user_id = s.user_id
+    LEFT JOIN agrop053_intro.cars AS c ON u.user_id = c.user_id;
+ 
+SELECT firstname, lastname, fiscal_code, COUNT(*) AS NumeroCorsi
+	FROM agrop053_intro.users_courses AS uc
+    LEFT JOIN agrop053_intro.users AS u ON u.user_id = uc.user_id
+    LEFT JOIN agrop053_intro.courses as c ON c.course_id = uc.course_id
+    WHERE c.course_name IN ("Php", "SQL", "Java", "Python")
+    GROUP BY fiscal_code
+    HAVING COUNT(*) > 1;
+

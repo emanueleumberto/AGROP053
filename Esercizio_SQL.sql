@@ -177,6 +177,65 @@ DROP DATABASE library_db;
 -- Aggiornare indirizzo di un utente
 -- Aggiornare le informazioni di un libro
 -- Aggiornare le informazioni sulla tabella prestiti
+*/
+
+-- Inserire dai 5 ai 10 valori corretti in ogni tabella del database librarydb 
+--   testando le relazioni e i vincoli di ogni tabella
+
+USE library_db;
+
+-- Inserire utenti nella tabella users
+INSERT INTO library_db.users (name,  email)
+		VALUES 	("Mario Rossi", "m.rossi@example.com"),
+				("Giuseppe Verdi", "g.verdi@test.eu"),
+				("Francesca Neri", "f.neri@example.it"),
+				("Antonio Bianchi", "a.bianchi@mysite.com"),
+				("Marta Viola", "m.viola@example.it");
+
+-- Inserire dettagli utente nella tabella userdetails
+INSERT INTO library_db.userdetails (address, phone_number)
+		VALUES	("Via Roma 5", "321456987"),
+				("Corso Italia 21", "369852147"),
+				("Piazza Duomo 3", "357123951"),
+                ("Via Marconi 8", "325698741"),
+                ("Piazza Venezia 33", "621745893");
+                
+-- Inserire autori nella tabella authors
+INSERT INTO library_db.authors (name, birth_year)
+		VALUES	("Umberto Eco", 1932),
+				("J.K. Rowling", 1965),
+                ("George Orwell", 1903),
+                ("Davide Bacchi", 1968),
+                ("Anna Salvati", 1948);
+
+-- Inserire libri nella tabella books
+INSERT INTO library_db.books (title, publication_year, author_id, genre, isbn)
+		VALUES	("Il Nome della Rosa", 1980, 1, "Romanzo", "978-88-061"),
+				("Harry Potter e la Pietra Filosofale", 1997, 2, "Fantasy", "978-88-092"),
+				("1984", 1949, 3, "Romanzo", "978-45-228"),
+				("Animali Fantastici e Dove Trovarli", 2001, 2, "Fantasy", "978-88-090"),
+				("La ricerca. Ori Miradha", 2014, 5, "Fantasy", "978-88-911");
+                
+-- Inserire i prestiti nella tabella loans
+INSERT INTO library_db.loans (user_id, book_id, loan_date, return_date)
+		VALUES	(2, 1, "2024-12-28", "2025-01-15"),
+				(4, 3, "2025-01-13", null),
+                (2, 4, "2025-03-12", "2025-03-15"),
+                (5, 2, "2025-03-28", "2025-04-08"),
+                (1, 1, "2025-04-02", null);
+
+-- Aggiornare indirizzo di un utente
+UPDATE library_db.userdetails SET address = "Via Roma 5 Napoli" WHERE user_id = 1;
+UPDATE library_db.userdetails SET address = "Corso Italia 21 Milano" WHERE user_id = 2;
+UPDATE library_db.userdetails SET address = "Piazza Duomo 3 Milano" WHERE user_id = 3;
+UPDATE library_db.userdetails SET address = "Via Marconi 8 Roma" WHERE user_id = 4;
+UPDATE library_db.userdetails SET address = "Piazza Venezia 33 Roma" WHERE user_id = 5;
+
+-- Aggiornare le informazioni di un libro
+UPDATE library_db.books SET publication_year = 2000 WHERE book_id = 4;
+
+-- Aggiornare le informazioni sulla tabella prestiti
+UPDATE library_db.loans SET return_date = "2025-04-09" WHERE loan_id = 5;
 
 -- Esercizio DQL 
 -- Recuperare Dati con Query (SELECT)
@@ -185,6 +244,22 @@ DROP DATABASE library_db;
 -- 3. Recuperare tutti i prestiti con nomi degli utenti e titoli dei libri
 -- 4. Trovare tutti i libri non ancora restituiti
 -- 5. Contare quanti libri ha scritto ogni autore
+-- 6. Trovare gli utenti che hanno preso in prestito almeno 2 libri
+-- 7. Trovare tutti i libri pubblicati dopo il 2000
+-- 8. Trovare gli utenti che vivono in una città specifica
+-- 9. Recuperare tutti i prestiti effettuati in un determinato intervallo di date
+-- 10. Recuperare i libri scritti da un autore specifico (es. "J.K. Rowling")
+-- 11. Elenco dei libri ordinato per anno di pubblicazione (dal più recente al più vecchio)
+-- 12. Elenco dei prestiti ordinato per data di prestito (dal più recente)
+-- 13. Contare quanti libri ci sono nella libreria
+-- 14. Trovare l'anno di pubblicazione più vecchio e più recente dei libri
+-- 15. Trovare gli utenti che hanno preso in prestito più di un libro
+
+-- EXTRA
+-- 16. Trovare gli utenti che hanno preso in prestito il libro più recente
+-- 17. Trovare gli utenti che hanno preso in prestito il libro più recente tra quelli presi in prestito
+-- 18. Trovare gli autori che non hanno ancora pubblicato libri
+-- 19. Recuperare i prestiti con il numero totale di prestiti per utente
     
     
     
