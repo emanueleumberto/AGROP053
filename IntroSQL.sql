@@ -182,6 +182,31 @@
         [HAVING Search Condition]
         [ORDER BY]
         [LIMIT]
+     
+	-- views
+	CREATE [OR REPLACE] VIEW db_name.view_name AS
+		SELECT [DISTINCT] column_name1, column_name2, ...., column_nameN | * | aggregate function(expression)
+		FROM db_name.table_name1 INNER JOIN db_name.table_name2 ON db_name.table_name1.column_name = db_name.table_name2.column_name
+        [WHERE Search Condition]
+        [GROUP BY]
+        [HAVING Search Condition]
+        [ORDER BY]
+        [LIMIT]
+        
+	SELECT * FROM db_name.view_name
+    DROP VIEW [IF EXISTS] db_name.view_name
+    
+    -- Stored porcedures
+    DELIMITER &&
+		CREATE PROCEDURE db_name.procedure_name [[IN | OUT | INOUT] parameter_name datatype ....]
+			BEGIN
+				....
+			END &&
+    DELIMITER;
+    
+    CALL db_name.procedure_name (parameter/s)
+    DROP PROCEDURE [IF EXISTS] db_name.procedure_name
+    
   */
   
 DROP DATABASE IF EXISTS agrop053_intro;
@@ -280,7 +305,7 @@ INSERT INTO agrop053_intro.users_courses(user_id, course_id)
 						VALUES (1,5), (3,5), (1,4), (2, 1), (3, 2), (2, 3);
                         
 INSERT INTO agrop053_intro.users_courses(user_id, course_id) 
-						VALUES (1,2)
+						VALUES (1,2);
                         
 -- UPDATE agrop053_intro.cars SET car_name = "Fiat Punto" WHERE car_id = 1;
 
@@ -372,7 +397,7 @@ SELECT firstname, lastname, fiscal_code, COUNT(*) AS NumeroCorsi
     GROUP BY fiscal_code
     HAVING COUNT(*) > 1;
     
--- View
+-- Views
 
 CREATE VIEW agrop053_intro.mia_vista AS 
 	SELECT firstname, lastname, fiscal_code, COUNT(*) AS NumeroCorsi
@@ -384,3 +409,59 @@ CREATE VIEW agrop053_intro.mia_vista AS
     HAVING COUNT(*) > 1;
     
 SELECT * FROM agrop053_intro.mia_vista;
+
+-- Stored Procedures
+DELIMITER &&
+	CREATE PROCEDURE agrop053_intro.getUsers()
+		BEGIN
+			SELECT * FROM agrop053_intro.users;
+		END &&
+DELIMITER ;
+
+CALL agrop053_intro.getUsers();
+
+-- Stored Procedures con parametri di INPUT
+DELIMITER &&
+	CREATE PROCEDURE agrop053_intro.getUsersOverAge(IN myage INT, IN mycity VARCHAR(100))
+		BEGIN
+			SELECT * FROM agrop053_intro.users WHERE age > myage AND city = mycity;
+		END &&
+DELIMITER ;
+-- DROP PROCEDURE agrop053_intro.getUsersOverAge;
+
+CALL agrop053_intro.getUsersOverAge(20, "Roma");
+CALL agrop053_intro.getUsersOverAge(30, "Napoli");
+CALL agrop053_intro.getUsersOverAge(40, "Milano");
+
+-- Stored Procedures con parametri di OUTPUT
+DELIMITER &&
+	CREATE PROCEDURE agrop053_intro.countUsers(OUT usercount INT)
+		BEGIN
+			SELECT COUNT(*) INTO usercount FROM agrop053_intro.users;
+		END &&
+DELIMITER ;
+CALL agrop053_intro.countUsers(@usercount);
+SELECT @usercount;
+
+-- Stored Procedures con parametri di INPUT e OUTPUT
+DELIMITER &&
+	CREATE PROCEDURE agrop053_intro.getAVGuserCity(IN mycity VARCHAR(100), OUT avgage DOUBLE )
+		BEGIN
+			SELECT AVG(age) INTO avgage FROM agrop053_intro.users WHERE city = mycity;
+		END &&
+DELIMITER ;
+
+SET @mycity = "Milano";
+CALL agrop053_intro.getAVGuserCity(@mycity, @avgage);
+SELECT @avgage;
+
+-- Stored Procedures con parametri di INOUT
+DELIMITER &&
+	CREATE PROCEDURE agrop053_intro.countOverAge(INOUT num INT)
+		BEGIN
+			SELECT COUNT(*) INTO num FROM agrop053_intro.users WHERE age > num;
+		END &&
+DELIMITER ;
+SET @num = 20;
+CALL agrop053_intro.countOverAge(@num);
+SELECT @num;
