@@ -1,9 +1,13 @@
 package org.example.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
 public class User {
 
     @Id
@@ -21,6 +25,34 @@ public class User {
     private String email;
     @Column( nullable = false)
     private String password;
+
+    // Solo se voglio una relazione Bidirezionale
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Passport passport;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_courses",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private List<Course> courses;
+
+    public User() {}
+
+    public User(String name, String lastname, int age, String email, String password, Company company) {
+        this.name = name;
+        this.lastname = lastname;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+        this.company = company;
+        this.courses = new ArrayList<>();
+    }
 
     public Long getId() {
         return id;
@@ -70,6 +102,30 @@ public class User {
         this.password = password;
     }
 
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -79,6 +135,8 @@ public class User {
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", passport=" + passport +
+                ", company=" + company +
                 '}';
     }
 }
